@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2025 a las 01:39:06
+-- Tiempo de generación: 10-06-2025 a las 05:42:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,7 +47,10 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `email`, `telefono`, `dni`) VALU
 (10, 'luis', 'lucho@gmail.com', '0987654123', '0987654321'),
 (11, 'lo', 'lo@gmail.com', '0987654321', '0912345678'),
 (12, 'jose', 'jose1@gmail.com', '1230987654', '1230987654'),
-(14, 'pepe', 'pep2@outlook.com', '1234509876', '1234509876');
+(14, 'pepe', 'pep2@outlook.com', '1234509876', '1234509876'),
+(15, 'juan', '11juan@gmail.com', '0912345876', '0912345876'),
+(16, 'ney ', 'ney@gmail.com', '1234567899', '1234567899'),
+(17, 'jose', 'pato@gmail.com', '1230987654', '');
 
 -- --------------------------------------------------------
 
@@ -69,10 +72,13 @@ CREATE TABLE `habitaciones` (
 
 INSERT INTO `habitaciones` (`id_habitacion`, `numero`, `tipo`, `precio`, `estado`) VALUES
 (1, '11', 'Doble', 100.00, 'Ocupada'),
-(2, '10', '', 50.40, 'Disponible'),
+(2, '10', '', 50.40, 'Ocupada'),
 (3, '5', '', 40.49, 'Ocupada'),
 (4, '09', 'Doble', 80.50, 'Ocupada'),
-(6, '2', 'Doble', 50.40, 'Ocupada');
+(6, '2', 'Doble', 50.40, 'Ocupada'),
+(7, '100', 'Doble', 50.00, 'Ocupada'),
+(8, '100', 'Doble', 100.00, 'Ocupada'),
+(9, '200', 'Doble', 30.00, 'Disponible');
 
 -- --------------------------------------------------------
 
@@ -96,7 +102,8 @@ INSERT INTO `pagos` (`id_pago`, `reserva_id`, `monto`, `fecha_pago`, `metodo_pag
 (1, 1, 95.50, '2025-05-31', 'Transferencia'),
 (2, 2, 40.49, '2025-06-01', 'Transferencia'),
 (3, 4, 80.50, '2025-06-02', 'Transferencia'),
-(4, 5, 50.40, '2025-06-02', 'Transferencia');
+(4, 5, 50.40, '2025-06-02', 'Transferencia'),
+(5, 6, 50.00, '2025-06-03', 'Transferencia');
 
 -- --------------------------------------------------------
 
@@ -122,7 +129,9 @@ INSERT INTO `reservas` (`id_reserva`, `cliente_id`, `habitacion_id`, `fecha_inic
 (2, 5, 3, '2025-06-05', '2025-06-10', 'Activa'),
 (3, 4, 1, '2025-06-03', '2025-06-04', 'Activa'),
 (4, 11, 4, '2025-06-20', '2025-06-23', 'Activa'),
-(5, 14, 6, '2025-06-03', '2025-06-04', 'Activa');
+(5, 14, 6, '2025-06-03', '2025-06-04', 'Activa'),
+(6, 15, 7, '2025-06-04', '2025-06-10', 'Activa'),
+(7, 16, 2, '2025-06-17', '2025-06-19', 'Activa');
 
 -- --------------------------------------------------------
 
@@ -134,7 +143,7 @@ CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `nombre_usuario` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `rol` enum('admin','empleado') NOT NULL
+  `rol` enum('admin','usuario') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -143,7 +152,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `password`, `rol`) VALUES
 (1, 'admin', 'admin02', 'admin'),
-(2, 'ney', 'neymar11', 'empleado');
+(3, 'ney', '1234', 'usuario'),
+(8, 'mama', '12345678', 'admin'),
+(9, 'teme', 'pato', 'usuario');
 
 --
 -- Índices para tablas volcadas
@@ -190,31 +201,31 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `habitaciones`
 --
 ALTER TABLE `habitaciones`
-  MODIFY `id_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_habitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
