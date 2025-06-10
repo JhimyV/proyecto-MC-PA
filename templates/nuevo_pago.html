@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Nuevo Pago{% endblock %}
+
+{% block content %}
+<h2>Registrar Pago</h2>
+<form method="POST" action="/pagos/guardar">
+    <label for="reserva_id">Reserva:</label><br>
+    <select id="reserva_id" name="reserva_id">
+        {% for r in reservas %}
+        <option value="{{ r[0] }}">Reserva {{ r[0] }} - {{ r[1] }} (Hab {{ r[2] }})</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="monto">Monto:</label><br>
+    <input type="number" step="0.01" id="monto" name="monto" required><br><br>
+
+    <label for="fecha_pago">Fecha Pago:</label><br>
+    <input type="date" id="fecha_pago" name="fecha_pago" required><br><br>
+
+    <label for="metodo_pago">Método de Pago:</label><br>
+    <input type="text" id="metodo_pago" name="metodo_pago" required><br><br>
+
+    <button class="button" type="submit">Guardar</button>
+</form>
+<a class="button" href="/pagos">Volver</a>
+{% endblock %}

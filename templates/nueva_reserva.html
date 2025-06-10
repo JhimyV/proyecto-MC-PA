@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}Nueva Reserva{% endblock %}
+
+{% block content %}
+<h2>Registrar Reserva</h2>
+<form method="POST" action="/reservas/guardar">
+    <label for="cliente_id">Cliente:</label><br>
+    <select id="cliente_id" name="cliente_id">
+        {% for c in clientes %}
+        <option value="{{ c[0] }}">{{ c[1] }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="habitacion_id">Habitación:</label><br>
+    <select id="habitacion_id" name="habitacion_id">
+        {% for h in habitaciones %}
+        <option value="{{ h[0] }}">Habitación {{ h[1] }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="fecha_inicio">Fecha Inicio:</label><br>
+    <input type="date" id="fecha_inicio" name="fecha_inicio" required><br><br>
+
+    <label for="fecha_fin">Fecha Fin:</label><br>
+    <input type="date" id="fecha_fin" name="fecha_fin" required><br><br>
+
+    <button class="button" type="submit">Guardar</button>
+</form>
+<a class="button" href="/reservas">Volver</a>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'layout_login.html' %}
+
+{% block title %}Registro - Hotel{% endblock %}
+
+{% block content %}
+<h2>Registro de Administrador</h2>
+<form method="POST" action="/registro">
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="usuario">Usuario:</label><br>
+    <input type="text" id="usuario" name="usuario" required><br><br>
+
+    <label for="password">Contraseña:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="rol">Selecciona rol:</label><br>
+    <select id="rol" name="rol" required>
+        <option value="usuario" selected>Usuario</option>
+        <option value="admin">Admin</option>
+    </select><br><br>
+
+    <button type="submit">Registrarse</button>
+</form>
+
+{% endblock %}

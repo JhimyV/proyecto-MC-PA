@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}Reportes{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Generar <span class="highlight">Reportes</span></h2>
+
+<h3>Habitaciones Ocupadas</h3>
+<table>
+    <tr>
+        <th>Habitación</th>
+        <th>Tipo</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Cliente</th>
+    </tr>
+    {% for h in habitaciones %}
+    <tr>
+        <td>{{ h[0] }}</td>
+        <td>{{ h[1] }}</td>
+        <td>{{ h[2] }}</td>
+        <td>{{ h[3] }}</td>
+        <td>{{ h[4] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Ingresos por Mes</h3>
+<table>
+    <tr>
+        <th>Mes</th>
+        <th>Total Recaudado</th>
+    </tr>
+    {% for i in ingresos %}
+    <tr>
+        <td>{{ i[0] }}</td>
+        <td>${{ i[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a class="button" href="/dashboard">Volver al inicio</a>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'layout_usuario.html' %}
+
+{% block content %}
+<div class="welcome-box">
+    <h2>Bienvenido, {{ session['usuario'] }}</h2>
+    <p>Este es tu panel como <strong>usuario registrado</strong>.</p>
+</div>
+
+<div class="card-grid">
+    <div class="card">
+        <strong>Habitaciones</strong>
+        <p>Consulta disponibilidad de habitaciones para reservar fácilmente.</p>
+        <a href="{{ url_for('ver_habitaciones') }}">
+            <button>Ver Habitaciones</button>
+        </a>
+    </div>
+
+    <div class="card">
+        <strong>Salir</strong>
+        <p>Cierra tu sesión de forma segura.</p>
+        <a href="{{ url_for('logout') }}">
+            <button>Cerrar Sesión</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

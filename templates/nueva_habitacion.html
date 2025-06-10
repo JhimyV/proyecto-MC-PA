@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Nueva Habitación{% endblock %}
+
+{% block content %}
+<h2>Registrar Habitación</h2>
+<form method="POST" action="/habitaciones/guardar">
+    <label for="numero">Número:</label><br>
+    <input type="text" id="numero" name="numero" placeholder="Número" required><br><br>
+
+    <label for="tipo">Tipo (Ej: Doble, Simple):</label><br>
+    <input type="text" id="tipo" name="tipo" placeholder="Tipo (Ej: Doble, Simple)" required><br><br>
+
+    <label for="precio">Precio:</label><br>
+    <input type="number" step="0.01" id="precio" name="precio" placeholder="Precio" required><br><br>
+
+    <label for="estado">Estado:</label><br>
+    <select id="estado" name="estado">
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupada">Ocupada</option>
+        <option value="Mantenimiento">Mantenimiento</option>
+    </select><br><br>
+
+    <button class="button" type="submit">Guardar</button>
+</form>
+<a class="button" href="/habitaciones">Volver</a>
+{% endblock %}

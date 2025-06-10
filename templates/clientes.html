@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Clientes <span class="highlight">Registrados</span></h2>
+<a class="button" href="/clientes/nuevo">Registrar nuevo cliente</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>DNI</th>
+        <th>Acciones</th>
+    </tr>
+    {% for cliente in clientes %}
+    <tr>
+        <td>{{ cliente[0] }}</td>
+        <td>{{ cliente[1] }}</td>
+        <td>{{ cliente[2] }}</td>
+        <td>{{ cliente[3] }}</td>
+        <td>{{ cliente[4] }}</td>
+        <td>
+            <a class="button" href="/clientes/editar/{{ cliente[0] }}">Editar</a>
+            <a class="button" href="/clientes/eliminar/{{ cliente[0] }}"
+                onclick="return confirm('¿Eliminar cliente?')">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="button" href="/dashboard">Volver</a>
+{% endblock %}

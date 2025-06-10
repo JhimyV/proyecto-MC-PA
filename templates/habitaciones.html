@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %}Habitaciones{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Lista de <span class="highlight">Habitaciones</span></h2>
+
+<a class="button" href="/habitaciones/nueva">Registrar nueva habitación</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for habitacion in habitaciones %}
+        <tr>
+            <td>{{ habitacion[0] }}</td>
+            <td>{{ habitacion[1] }}</td>
+            <td>{{ habitacion[2] }}</td>
+            <td>{{ habitacion[3] }}</td>
+            <td>{{ habitacion[4] }}</td>
+            <td>
+                <a class="button" href="/habitaciones/editar/{{ habitacion[0] }}">Editar</a>
+                <a class="button" href="/habitaciones/eliminar/{{ habitacion[0] }}"
+                    onclick="return confirm('¿Eliminar habitación?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="button" href="/dashboard">Volver</a>
+{% endblock %}

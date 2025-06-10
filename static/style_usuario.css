@@ -1,0 +1,129 @@
+body.dashboard-body {
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 3rem 2rem;
+    color: #102a43;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+main.content {
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Header */
+header.dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background-color: transparent;
+    padding: 0;
+}
+
+header.dashboard-header h1 {
+    font-weight: 800;
+    font-size: 3.2rem;
+    color: #1a202c;
+    margin: 0;
+}
+
+header.dashboard-header .highlight {
+    color: #2dd4bf;
+}
+
+header.dashboard-header .subtitle {
+    font-size: 1.1rem;
+    color: #486581;
+    margin-top: 0.75rem;
+}
+
+/* Bienvenida */
+.welcome-box {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 5px 15px rgba(0, 43, 91, 0.08);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-box h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #2f855a;
+}
+
+.welcome-box p {
+    margin-top: 0.5rem;
+    color: #486581;
+}
+
+/* Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    padding-top: 1rem;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 20px rgba(0, 43, 91, 0.1);
+    text-decoration: none;
+    color: #102a43;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 43, 91, 0.15);
+    background-color: #e6fffa;
+    border-color: #2f855a;
+    color: #2f855a;
+}
+
+.card strong {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #486581;
+    text-align: center;
+    line-height: 1.3;
+    margin: 0;
+    max-width: 210px;
+}
+
+/* Botón dentro de card */
+.card button {
+    background-color: #2f855a;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+    background-color: #276749;
+}

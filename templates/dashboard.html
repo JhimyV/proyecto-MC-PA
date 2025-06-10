@@ -1,0 +1,37 @@
+{% extends 'layout_dashboard.html' %}
+
+{% block content %}
+
+<div class="card-grid">
+  <a href="/clientes" class="card">
+    <h2>👥</h2>
+    <strong>Clientes</strong>
+    <p>Gestión completa de clientes registrados</p>
+  </a>
+  <a href="/habitaciones" class="card">
+    <h2>🛏️</h2>
+    <strong>Habitaciones</strong>
+    <p>Control y administración de habitaciones</p>
+  </a>
+  <a href="/reservas" class="card">
+    <h2>📅</h2>
+    <strong>Reservas</strong>
+    <p>Consulta y gestiona las reservas activas</p>
+  </a>
+  <a href="/pagos" class="card">
+    <h2>💳</h2>
+    <strong>Pagos</strong>
+    <p>Historial y control de pagos recibidos</p>
+  </a>
+  <a href="/reportes" class="card">
+    <h2>📊</h2>
+    <strong>Reportes</strong>
+    <p>Visualiza estadísticas del hotel</p>
+  </a>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+  <a href="{{ url_for('logout') }}" class="button">Cerrar sesión</a>
+</div>
+
+{% endblock %}

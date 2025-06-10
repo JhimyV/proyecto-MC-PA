@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}Reservas{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Lista de <span class="highlight">Reservas</span></h2>
+<a class="button" href="/reservas/nueva">Crear nueva reserva</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Habitación</th>
+        <th>Desde</th>
+        <th>Hasta</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    {% for r in reservas %}
+    <tr>
+        <td>{{ r[0] }}</td>
+        <td>{{ r[1] }}</td>
+        <td>{{ r[2] }}</td>
+        <td>{{ r[3] }}</td>
+        <td>{{ r[4] }}</td>
+        <td>{{ r[5] }}</td>
+        <td>
+            <a class="button" href="/reservas/editar/{{ r[0] }}">Editar</a>
+            <a class="button" href="/reservas/cancelar/{{ r[0] }}"
+                onclick="return confirm('¿Cancelar reserva?')">Cancelar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="button" href="/dashboard">Volver</a>
+{% endblock %}
