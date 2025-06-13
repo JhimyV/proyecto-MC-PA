@@ -1,6 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, make_response
+import io
 from werkzeug.security import generate_password_hash
 from flask_mysqldb import MySQL
+from xhtml2pdf import pisa
+from MySQLdb.cursors import DictCursor
+
 
 app = Flask(__name__)
 app.secret_key = 'clave_secreta'  
@@ -347,25 +351,29 @@ def cancelar_reserva(id):
 #------------------------pago----------------------------------------------------------
 @app.route('/pagos')
 def pagos():
-    if 'usuario' in session:
-        cur = mysql.connection.cursor()
-        cur.execute("""
-            SELECT p.id_pago, c.nombre, h.numero, p.monto, p.fecha_pago, p.metodo_pago
-            FROM pagos p
-            JOIN reservas r ON p.reserva_id = r.id_reserva
-            JOIN clientes c ON r.cliente_id = c.id_cliente
-            JOIN habitaciones h ON r.habitacion_id = h.id_habitacion
-        """)
-        pagos = cur.fetchall()
-        cur.close()
-        return render_template('pagos.html', pagos=pagos)
-    else:
-        return redirect(url_for('home'))
+    cur = mysql.connection.cursor(DictCursor)
+    cur.execute("""
+        SELECT pagos.id_pago, pagos.monto, pagos.fecha_pago, pagos.metodo_pago,
+               reservas.id_reserva, reservas.fecha_inicio, reservas.fecha_fin,
+               clientes.nombre AS cliente_nombre, clientes.dni, clientes.email, clientes.telefono,
+               habitaciones.numero AS numero_habitacion, habitaciones.tipo, habitaciones.precio
+        FROM pagos
+        JOIN reservas ON pagos.reserva_id = reservas.id_reserva
+        JOIN clientes ON reservas.cliente_id = clientes.id_cliente
+        JOIN habitaciones ON reservas.habitacion_id = habitaciones.id_habitacion
+        ORDER BY pagos.id_pago DESC
+    """)
+    pagos = cur.fetchall()
+    cur.close()
+    return render_template('pagos.html', pagos=pagos)
+
+
 
 @app.route('/pagos/nuevo')
 def nuevo_pago():
     if 'usuario' in session:
         cur = mysql.connection.cursor()
+
         cur.execute("""
             SELECT r.id_reserva, c.nombre, h.numero
             FROM reservas r
@@ -426,6 +434,44 @@ def reportes():
         return render_template('reportes.html', habitaciones=habitaciones_ocupadas, ingresos=ingresos_mensuales)
     else:
         return redirect(url_for('home'))
+    
+#---------------------reporte en pdf---------------------------------------------------------------
+@app.route('/reporte_pdf/<int:pago_id>')
+def reporte_pdf(pago_id):
+    cur = mysql.connection.cursor(DictCursor)
+
+
+    query = """
+        SELECT 
+            pagos.id_pago, pagos.monto, pagos.fecha_pago,
+            clientes.nombre AS cliente_nombre,
+            habitaciones.numero, habitaciones.tipo, habitaciones.precio,
+            reservas.fecha_inicio, reservas.fecha_fin
+        FROM pagos
+        JOIN reservas ON pagos.reserva_id = reservas.id_reserva
+        JOIN clientes ON reservas.cliente_id = clientes.id_cliente
+        JOIN habitaciones ON reservas.habitacion_id = habitaciones.id_habitacion
+        WHERE pagos.id_pago = %s
+    """
+    cur.execute(query, (pago_id,))
+    data = cur.fetchone()
+
+    if not data:
+        return "Pago no encontrado", 404
+
+    rendered = render_template('factura_pdf.html', data=data)
+
+    pdf = io.BytesIO()
+    pisa_status = pisa.CreatePDF(rendered, dest=pdf)
+
+    if pisa_status.err:
+        return "Error al generar PDF", 500
+
+    response = make_response(pdf.getvalue())
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = f'inline; filename=factura_pago_{pago_id}.pdf'
+
+    return response
 
 #--------------------------filtros------------------------------------------------
 @app.route('/reservas/buscar', methods=['GET', 'POST'])

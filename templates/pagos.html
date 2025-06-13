@@ -5,25 +5,51 @@
 {% block content %}
 <h2 class="section-title">Historial de <span class="highlight">Pagos</span></h2>
 <a class="button" href="/pagos/nuevo">Registrar nuevo pago</a>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Cliente</th>
-        <th>Habitación</th>
-        <th>Monto</th>
-        <th>Fecha</th>
-        <th>Método</th>
-    </tr>
-    {% for p in pagos %}
-    <tr>
-        <td>{{ p[0] }}</td>
-        <td>{{ p[1] }}</td>
-        <td>{{ p[2] }}</td>
-        <td>{{ p[3] }}</td>
-        <td>{{ p[4] }}</td>
-        <td>{{ p[5] }}</td>
-    </tr>
-    {% endfor %}
+<h2>Listado de Pagos</h2>
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID Pago</th>
+            <th>Cliente</th>
+            <th>DNI</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Habitación</th>
+            <th>Tipo</th>
+            <th>Reserva</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Monto</th>
+            <th>Método</th>
+            <th>Fecha Pago</th>
+            <th>Factura PDF</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pago in pagos %}
+        <tr>
+            <td>{{ pago.id_pago }}</td>
+            <td>{{ pago.cliente_nombre }}</td>
+            <td>{{ pago.dni }}</td>
+            <td>{{ pago.email }}</td>
+            <td>{{ pago.telefono }}</td>
+            <td>{{ pago.numero_habitacion }}</td>
+            <td>{{ pago.tipo }}</td>
+            <td>#{{ pago.id_reserva }}</td>
+            <td>{{ pago.fecha_inicio }}</td>
+            <td>{{ pago.fecha_fin }}</td>
+            <td>${{ pago.monto }}</td>
+            <td>{{ pago.metodo_pago }}</td>
+            <td>{{ pago.fecha_pago }}</td>
+            <td>
+                <a href="{{ url_for('reporte_pdf', pago_id=pago.id_pago) }}" target="_blank">
+                    Generar PDF
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
+
 <a class="button" href="/dashboard">Volver</a>
 {% endblock %}

@@ -1,23 +1,26 @@
-{% extends 'layout.html' %}
+{% extends 'layout_registrar.html' %}
 
 {% block title %}Nuevo Cliente{% endblock %}
 
 {% block content %}
-<h2>Registrar Cliente</h2>
-<form method="POST" action="/clientes/guardar">
-    <label for="nombre">Nombre:</label><br>
-    <input type="text" id="nombre" name="nombre" placeholder="Nombre" required><br><br>
+<div class="form-container">
+    <h2>Registrar nuevo Cliente</h2>
+    <form method="POST" action="/clientes/guardar">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
 
-    <label for="email">Correo:</label><br>
-    <input type="email" id="email" name="email" placeholder="Correo" required><br><br>
+        <label for="email">Correo:</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
 
-    <label for="telefono">Teléfono:</label><br>
-    <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required><br><br>
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" placeholder="Número de teléfono" required>
 
-    <label for="dni">DNI:</label><br>
-    <input type="text" id="dni" name="dni" placeholder="DNI" required><br><br>
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" placeholder="Documento de identidad" required>
 
-    <button class="button" type="submit">Guardar</button>
-</form>
-<a class="button" href="/clientes">Volver a clientes</a>
+        <button class="button" type="submit">Guardar</button>
+    </form>
+
+    <a class="back-button" href="/clientes">← Volver a clientes</a>
+</div>
 {% endblock %}

@@ -1,31 +1,34 @@
-{% extends 'layout.html' %}
+{% extends 'layout_registrar.html' %}
 
 {% block title %}Nueva Reserva{% endblock %}
 
 {% block content %}
-<h2>Registrar Reserva</h2>
-<form method="POST" action="/reservas/guardar">
-    <label for="cliente_id">Cliente:</label><br>
-    <select id="cliente_id" name="cliente_id">
-        {% for c in clientes %}
-        <option value="{{ c[0] }}">{{ c[1] }}</option>
-        {% endfor %}
-    </select><br><br>
+<div class="form-container">
+    <h2>Registrar nueva Reserva</h2>
+    <form method="POST" action="/reservas/guardar">
+        <label for="cliente_id">Cliente:</label>
+        <select id="cliente_id" name="cliente_id" required>
+            {% for c in clientes %}
+            <option value="{{ c[0] }}">{{ c[1] }}</option>
+            {% endfor %}
+        </select>
 
-    <label for="habitacion_id">Habitación:</label><br>
-    <select id="habitacion_id" name="habitacion_id">
-        {% for h in habitaciones %}
-        <option value="{{ h[0] }}">Habitación {{ h[1] }}</option>
-        {% endfor %}
-    </select><br><br>
+        <label for="habitacion_id">Habitación:</label>
+        <select id="habitacion_id" name="habitacion_id" required>
+            {% for h in habitaciones %}
+            <option value="{{ h[0] }}">Habitación {{ h[1] }}</option>
+            {% endfor %}
+        </select>
 
-    <label for="fecha_inicio">Fecha Inicio:</label><br>
-    <input type="date" id="fecha_inicio" name="fecha_inicio" required><br><br>
+        <label for="fecha_inicio">Fecha Inicio:</label>
+        <input type="date" id="fecha_inicio" name="fecha_inicio" required>
 
-    <label for="fecha_fin">Fecha Fin:</label><br>
-    <input type="date" id="fecha_fin" name="fecha_fin" required><br><br>
+        <label for="fecha_fin">Fecha Fin:</label>
+        <input type="date" id="fecha_fin" name="fecha_fin" required>
 
-    <button class="button" type="submit">Guardar</button>
-</form>
-<a class="button" href="/reservas">Volver</a>
+        <button class="button" type="submit">Guardar</button>
+    </form>
+
+    <a class="back-button" href="/reservas">← Volver a reservas</a>
+</div>
 {% endblock %}
