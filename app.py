@@ -358,6 +358,32 @@ def cancelar_reserva(id):
         return redirect(url_for('reservas'))
     else:
         return redirect(url_for('home'))
+    
+
+@app.route('/reservas/eliminar/<int:id>')
+def eliminar_reserva(id):
+    if 'usuario' in session:
+        cur = mysql.connection.cursor()
+
+        cur.execute("SELECT habitacion_id FROM reservas WHERE id_reserva = %s", (id,))
+        reserva = cur.fetchone()
+
+        if reserva:
+            habitacion_id = reserva[0]
+
+            cur.execute("DELETE FROM pagos WHERE reserva_id = %s", (id,))
+
+            cur.execute("DELETE FROM reservas WHERE id_reserva = %s", (id,))
+
+            cur.execute("UPDATE habitaciones SET estado = 'Disponible' WHERE id_habitacion = %s", (habitacion_id,))
+
+            mysql.connection.commit()
+
+        cur.close()
+        return redirect(url_for('reservas'))
+    else:
+        return redirect(url_for('home'))
+
 
 #------------------------pago----------------------------------------------------------
 @app.route('/pagos')
