@@ -164,14 +164,25 @@ def actualizar_cliente(id):
 @app.route('/clientes/eliminar/<int:id>')
 def eliminar_cliente(id):
     if 'usuario' in session and session.get('rol') == 'admin':
-
         cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM clientes WHERE id_cliente = %s", (id,))
-        mysql.connection.commit()
-        cur.close()
-        return redirect(url_for('clientes'))
+
+        # Verificar si el cliente tiene reservas
+        cur.execute("SELECT COUNT(*) FROM reservas WHERE cliente_id = %s", (id,))
+        reservas_count = cur.fetchone()[0]
+
+        if reservas_count > 0:
+            cur.close()
+            flash("No se puede eliminar el cliente porque tiene reservas asociadas.", "error")
+            return redirect(url_for('clientes'))
+        else:
+            cur.execute("DELETE FROM clientes WHERE id_cliente = %s", (id,))
+            mysql.connection.commit()
+            cur.close()
+            flash("Cliente eliminado correctamente.", "success")
+            return redirect(url_for('clientes'))
     else:
         return redirect(url_for('home'))
+
 
 #---------------habitaciones--------------------------------------------
 @app.route('/habitaciones')
@@ -435,7 +446,7 @@ def reportes():
     else:
         return redirect(url_for('home'))
     
-#---------------------reporte en pdf---------------------------------------------------------------
+#---------------------reporte en pdf---------------------------------------------------------------d
 @app.route('/reporte_pdf/<int:pago_id>')
 def reporte_pdf(pago_id):
     cur = mysql.connection.cursor(DictCursor)
